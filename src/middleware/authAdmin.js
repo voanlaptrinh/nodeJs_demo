@@ -11,8 +11,8 @@ const authAdmin = async (req, res, next) => {
         }
         const token = authHeader.split(' ')[1];
         const decodeToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-        const { username } = decodeToken;
-        const user = await login.findOne({ username: username });
+        const { username, _id } = decodeToken;
+        const user = await login.findOne({ _id: _id });
 
         const isAdmin = user.isAdmin
         // console.log(user);
@@ -25,6 +25,7 @@ const authAdmin = async (req, res, next) => {
         }
 
         req.username = username;
+        req._id = _id
 
         next();
     } catch (error) {

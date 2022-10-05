@@ -12,17 +12,19 @@ const auth = async (req, res, next) => {
         const token = authHeader.split(' ')[1];
 
         const decodeToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
-        const { username, isAdmin } = decodeToken;
+        const { username, _id } = decodeToken;
+        // console.log(decodeToken);
         //get user
-        const user = await login.findOne({ username: username });
+        const user = await login.findOne({ _id: _id });
         // console.log(user);
         if (!user) {
             return res.status(401).json({ message: 'Unauthorized' });
         }
 
         //req
+        req._id = _id;
         req.username = username;
-        req.isAdmin = isAdmin;
+
         next()
 
 

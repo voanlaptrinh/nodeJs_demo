@@ -9,13 +9,13 @@ const todoRouter = express.Router();
 
 const upload = multer({ dest: 'uploads/' })
 
-// todoRouter.post('/profile', upload.single('avatar'), function (req, res, next) {
-    // req.file is the `avatar` file
-   // req.body will hold the text fields, if there were any
+//! todoRouter.post('/profile', upload.single('avatar'), function (req, res, next) {
+    //! req.file is the `avatar` file
+   //! req.body will hold the text fields, if there were any
 
-//     console.log(req.file);
-//     return res.status(200).json({ path: req.file.path });
-// })
+//  !   console.log(req.file);
+//  !   return res.status(200).json({ path: req.file.path });
+// ! })
 
 todoRouter.get('/Todo/list', auth, getTodo)
 todoRouter.post('/Todo/create', auth, upload.single('avatar'), createTodo)

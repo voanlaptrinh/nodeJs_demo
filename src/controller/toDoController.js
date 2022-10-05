@@ -21,9 +21,12 @@ export const createTodo = async (req, res, next) => {
         const upload = req.file.path
         console.log(req.file.path);
         const { name, status } = req.body;
-     const usename = req.username
+        const username = req.username
+        const id_token = req._id
+         console.log(id_token);
+        //  console.log(usename);
         const task = {
-            userLogin: usename,
+            userLogin: id_token,
             name: name,
             status: status,
             storage: upload
@@ -126,11 +129,12 @@ export const TodoFromUser = async (req, res) => {
     try {
         //get user from auth
         // console.log(req.username);
-        const { username } = req
+        const { _id } = req
         // console.log(username);
         const { name, status } = req.body;
+
         const task = {
-            userLogin: username,
+            userLogin: _id,
             name: name,
             status: status
         }

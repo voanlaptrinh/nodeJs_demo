@@ -18,12 +18,14 @@ export const postLogin = async (req, res) => {
     }
     const payload = {
       username,
-      
+      _id: user._id,
+
     }
+ 
 
     const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET)
     return res.status(200).json({
-      id: user._id,
+      _id: user._id,
       user: user.username,
       pass: user.pass,
       isAdmin: user.isAdmin,
@@ -40,7 +42,7 @@ export const addLogin = async (req, res, next) => {
     //hash
     const salt = await bcrypt.genSalt(4);
     const passwork = await bcrypt.hash(pass, salt);
-    console.log(passwork);
+    // console.log(passwork);
     const newLogin = new login();
     newLogin.username = username;
     newLogin.pass = passwork;
